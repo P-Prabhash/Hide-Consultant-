@@ -8,7 +8,10 @@ const AIConsultant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'assistant', content: "Hello! I'm the Hide Consultant Assistant. How can I help you with your business goals today?" }
+    { 
+      role: 'assistant', 
+      content: "Welcome to Hide Consultant. I'm your AI Strategy Advisor. To provide the most tailored guidance, what core business challenge are you currently facing? Are you interested in exploring aggressive scaling strategies, or perhaps optimizing your digital infrastructure for better efficiency?" 
+    }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
