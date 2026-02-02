@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, User, Sparkles, Loader2 } from 'lucide-react';
 import { getAIConsultantResponse } from '../services/geminiService';
@@ -42,11 +41,11 @@ const AIConsultant: React.FC = () => {
       {!isOpen && (
         <button 
           onClick={() => setIsOpen(true)}
-          className="bg-slate-900 text-white p-4 rounded-full shadow-2xl hover:bg-blue-600 transition-all group animate-bounce"
+          className="bg-blue-600 text-white p-4 rounded-full shadow-2xl hover:bg-blue-700 transition-all group animate-bounce"
         >
           <div className="relative">
             <MessageSquare className="h-8 w-8" />
-            <Sparkles className="absolute -top-2 -right-2 h-4 w-4 text-blue-400 animate-pulse" />
+            <Sparkles className="absolute -top-2 -right-2 h-4 w-4 text-blue-200 animate-pulse" />
           </div>
         </button>
       )}
@@ -55,20 +54,20 @@ const AIConsultant: React.FC = () => {
       {isOpen && (
         <div className="bg-white w-[380px] h-[550px] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200 animate-in slide-in-from-bottom-10 fade-in duration-300">
           {/* Header */}
-          <div className="bg-slate-900 p-6 flex items-center justify-between">
+          <div className="bg-blue-600 p-6 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="bg-blue-600 p-2 rounded-xl">
+              <div className="bg-blue-500 p-2 rounded-xl border border-blue-400">
                 <Bot className="text-white h-5 w-5" />
               </div>
               <div>
                 <h4 className="text-white font-bold text-sm">AI Strategy Advisor</h4>
                 <div className="flex items-center space-x-1">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  <span className="text-slate-400 text-[10px] font-medium uppercase tracking-wider">Online & Active</span>
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                  <span className="text-blue-100 text-[10px] font-medium uppercase tracking-wider">Online & Active</span>
                 </div>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors">
+            <button onClick={() => setIsOpen(false)} className="text-blue-100 hover:text-white transition-colors">
               <X size={20} />
             </button>
           </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { services } from '../data/servicesData';
@@ -36,7 +35,7 @@ const ServiceDetail: React.FC = () => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <h2 className="text-2xl font-bold text-slate-900 mb-4">Service not found</h2>
-        <Link to="/services" className="text-blue-600 hover:underline flex items-center space-x-2">
+        <Link to="/services" className="text-slate-900 hover:underline flex items-center space-x-2">
           <ArrowLeft size={16} />
           <span>Back to Services</span>
         </Link>
@@ -74,7 +73,7 @@ const ServiceDetail: React.FC = () => {
                 {service.longDescription}
               </p>
               <div className="pt-4">
-                <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 inline-flex items-center space-x-2">
+                <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 inline-flex items-center space-x-2">
                   <span>Discuss Your Project</span>
                   <ChevronRight size={20} />
                 </Link>
@@ -104,7 +103,7 @@ const ServiceDetail: React.FC = () => {
               </div>
               <ul className="space-y-4">
                 {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start space-x-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:border-blue-100 transition-colors">
+                  <li key={idx} className="flex items-start space-x-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:border-blue-200 transition-colors">
                     <div className="bg-blue-50 p-2 rounded-lg text-blue-600 mt-1">
                       <CheckCircle2 size={18} />
                     </div>
@@ -151,7 +150,7 @@ const ServiceDetail: React.FC = () => {
                 Explore our recent success stories where we implemented {service.title} for market leaders and rapidly scaling startups.
               </p>
             </div>
-            <Link to="/gallery" className="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg flex items-center space-x-2 whitespace-nowrap">
+            <Link to="/gallery" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg flex items-center space-x-2 whitespace-nowrap">
               <span>View Case Studies</span>
               <ChevronRight size={20} />
             </Link>
