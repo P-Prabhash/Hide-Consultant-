@@ -8,6 +8,7 @@ import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
+import Placements from './pages/Placements';
 import AIConsultant from './components/AIConsultant';
 import AdminPortal from './components/AdminPortal';
 
@@ -22,12 +23,15 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
     { name: 'Gallery', path: '/gallery' },
+    { name: 'Placements', path: '/placements' },
     { name: 'Contact', path: '/contact' },
+    { name: 'About', path: '/about' },
   ];
 
   const updateIndicator = (index: number | null) => {
     const targetIndex = index !== null ? index : navLinks.findIndex(l => 
-      location.pathname === (l.path === '/' ? '/' : l.path) || (l.path === '/services' && location.pathname.startsWith('/services'))
+      location.pathname === (l.path === '/' ? '/' : l.path) || 
+      (l.path !== '/' && location.pathname.startsWith(l.path))
     );
 
     if (targetIndex !== -1 && navRefs.current[targetIndex]) {
@@ -64,7 +68,7 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
           </div>
           
           <div className="hidden md:flex items-center space-x-6">
-            <div className="flex items-center space-x-2 relative mr-4">
+            <div className="flex items-center space-x-1 relative mr-2">
               {/* Sliding Indicator Overlay */}
               <div 
                 className="absolute h-10 bg-blue-50 rounded-xl transition-all duration-300 ease-out pointer-events-none"
@@ -84,9 +88,9 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
                     setHoveredIndex(null);
                     updateIndicator(null);
                   }}
-                  className={`relative z-10 px-4 py-2 text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${
+                  className={`relative z-10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-300 ${
                     location.pathname === (link.path === '/' ? '/' : link.path) || 
-                    (link.path === '/services' && location.pathname.startsWith('/services')) ||
+                    (link.path !== '/' && location.pathname.startsWith(link.path)) ||
                     hoveredIndex === idx
                     ? 'text-blue-600' 
                     : 'text-slate-400'
@@ -97,30 +101,26 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
               ))}
             </div>
             
-            <div className="flex items-center space-x-4">
-              <Link 
-                to="/about" 
-                className="bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-blue-100 flex items-center space-x-2"
-              >
-                <span>About Us</span>
-              </Link>
-              
-              <div className="group relative py-4 px-2">
-                <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
-                  <button 
-                    onClick={onAdmin}
-                    className="flex items-center space-x-2 text-[10px] font-black text-slate-400 hover:text-blue-600 uppercase tracking-widest border border-slate-200 hover:border-blue-300 px-3 py-1.5 rounded-lg bg-white shadow-sm"
-                  >
-                    <Lock size={12} />
-                    <span>Admin</span>
-                  </button>
-                </div>
+            {/* Secret Admin Trigger Zone (Hide and View) */}
+            <div className="group relative h-20 flex items-center px-4 cursor-default">
+              {/* This inner div is invisible by default (hide) and visible on hover (view) */}
+              <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-700 transform translate-x-4 group-hover:translate-x-0">
+                <button 
+                  onClick={onAdmin}
+                  className="flex items-center space-x-2 text-[9px] font-black text-slate-400 hover:text-blue-600 uppercase tracking-[0.2em] border border-slate-200 hover:border-blue-600 px-4 py-2 rounded-xl bg-white shadow-xl transition-all"
+                >
+                  <Lock size={12} />
+                  <span>Terminal</span>
+                </button>
               </div>
+              {/* Invisible anchor buffer to catch the hover */}
+              <div className="absolute inset-y-0 right-0 w-16 bg-transparent"></div>
             </div>
           </div>
 
           <div className="md:hidden flex items-center space-x-4">
-            <button onClick={onAdmin} className="p-2 opacity-10 active:opacity-100 transition-opacity">
+            {/* Nearly invisible ghost button for mobile admin access */}
+            <button onClick={onAdmin} className="p-2 opacity-[0.03] active:opacity-100 transition-opacity">
                <Lock size={16} className="text-slate-900" />
             </button>
             <button onClick={() => setIsOpen(!isOpen)} className="text-slate-900">
@@ -131,25 +131,23 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white absolute w-full shadow-xl animate-in slide-in-from-top duration-300">
-          <div className="px-4 pt-2 pb-6 space-y-1">
+        <div className="md:hidden bg-white absolute w-full shadow-2xl animate-in slide-in-from-top duration-300 border-b border-slate-100">
+          <div className="px-4 pt-2 pb-8 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-4 text-sm font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md uppercase tracking-widest"
+                className={`block px-5 py-4 text-xs font-black rounded-2xl uppercase tracking-[0.25em] ${
+                   location.pathname === (link.path === '/' ? '/' : link.path) || 
+                   (link.path !== '/' && location.pathname.startsWith(link.path))
+                   ? 'text-blue-600 bg-blue-50'
+                   : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                }`}
               >
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/about"
-              onClick={() => setIsOpen(false)}
-              className="block w-full text-center bg-blue-600 text-white px-3 py-4 rounded-xl font-bold uppercase tracking-widest mt-4"
-            >
-              About Us
-            </Link>
           </div>
         </div>
       )}
@@ -158,9 +156,9 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
 };
 
 const CopyrightBar: React.FC = () => (
-  <div className="bg-blue-600 py-3 flex justify-center items-center shadow-[0_-4px_20px_rgba(37,99,235,0.1)]">
-    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white">
-      © {new Date().getFullYear()} SKILL TECH SOFTWARE SOLUTIONS PVT LTD
+  <div className="bg-blue-600 py-4 flex justify-center items-center shadow-[0_-10px_40px_rgba(37,99,235,0.15)]">
+    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white">
+      © {new Date().getFullYear()} SKILL TECH SOFTWARE SOLUTIONS PVT LTD • APEX CONSULTING
     </p>
   </div>
 );
@@ -173,15 +171,16 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="h-screen flex flex-col overflow-hidden animate-in fade-in duration-700 bg-white">
+      <div className="h-screen flex flex-col overflow-hidden animate-in fade-in duration-700 bg-white selection:bg-blue-600 selection:text-white">
         <Navbar onAdmin={openAdmin} />
-        <main className="flex-grow overflow-hidden">
+        <main className="flex-grow overflow-hidden relative">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/:id" element={<ServiceDetail />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/placements" element={<Placements />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>

@@ -13,6 +13,15 @@ export interface GalleryItem {
   category: string;
 }
 
+export interface StudentPlacement {
+  id: string;
+  name: string;
+  photo: string;
+  package: string;
+  company: string;
+  date: string;
+}
+
 export interface TeamMember {
   id: string;
   name: string;

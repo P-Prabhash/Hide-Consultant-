@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, ExternalLink } from 'lucide-react';
+import { GalleryItem } from '../types';
 
 const Gallery: React.FC = () => {
-  const items = [
-    { title: "Tech Startup Scale-up", category: "Technology", url: "https://picsum.photos/seed/p1/800/600" },
-    { title: "M&A Integration", category: "Financial", url: "https://picsum.photos/seed/p2/800/600" },
-    { title: "Annual Partner Retreat", category: "Team", url: "https://picsum.photos/seed/p3/800/600" },
-    { title: "Market Entry: Singapore", category: "Strategy", url: "https://picsum.photos/seed/p4/800/600" },
-    { title: "Digital Banking Overhaul", category: "Technology", url: "https://picsum.photos/seed/p5/800/600" },
-    { title: "Brand Identity Workshop", category: "Strategy", url: "https://picsum.photos/seed/p6/800/600" },
-    { title: "Global CFO Summit", category: "Financial", url: "https://picsum.photos/seed/p7/800/600" },
-    { title: "New Headquarters", category: "Team", url: "https://picsum.photos/seed/p8/800/600" },
-  ];
+  const [items, setItems] = useState<GalleryItem[]>([
+    { id: '1', title: "Tech Startup Scale-up", category: "Technology", url: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop" },
+    { id: '2', title: "M&A Integration", category: "Financial", url: "https://images.unsplash.com/photo-1454165833767-02a6e3099033?q=80&w=2070&auto=format&fit=crop" },
+    { id: '3', title: "Annual Partner Retreat", category: "Team", url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop" },
+    { id: '4', title: "Market Entry: Singapore", category: "Strategy", url: "https://images.unsplash.com/photo-1449034446853-66c86144b0ad?q=80&w=2070&auto=format&fit=crop" },
+  ]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('hide_gallery');
+    if (saved) {
+      const dynamicItems = JSON.parse(saved);
+      setItems(prev => [...prev, ...dynamicItems]);
+    }
+  }, []);
 
   return (
     <div className="h-full w-full relative overflow-hidden flex flex-col bg-white px-4 md:px-8 lg:px-12 py-8">
@@ -32,9 +37,9 @@ const Gallery: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-grow grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4 overflow-hidden">
+        <div className="flex-grow grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4 overflow-y-auto">
           {items.map((item, i) => (
-            <div key={i} className="group relative rounded-3xl overflow-hidden bg-slate-100 shadow-sm">
+            <div key={item.id} className="group relative rounded-3xl overflow-hidden bg-slate-100 shadow-sm aspect-[4/5]">
               <img 
                 src={item.url} 
                 alt={item.title} 
