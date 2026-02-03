@@ -61,7 +61,7 @@ const Home: React.FC = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
                   alt="Corporate Excellence" 
-                  className="w-full aspect-[4/5] max-h-[70vh] object-cover grayscale transition-all duration-1000 transform hover:scale-105" 
+                  className="w-full aspect-[4/5] max-h-[70vh] object-cover transition-all duration-1000 transform hover:scale-105" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-transparent opacity-60"></div>
               </div>
@@ -102,7 +102,7 @@ const Home: React.FC = () => {
               {recentPlacements.map(student => (
                 <div key={student.id} className="bg-white p-5 rounded-[2.5rem] border border-slate-200 shadow-sm hover:shadow-xl transition-all group">
                   <div className="relative h-48 mb-6 overflow-hidden rounded-[2rem]">
-                    <img src={student.photo} alt={student.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    <img src={student.photo} alt={student.name} className="w-full h-full object-cover transition-all duration-500" />
                     <div className="absolute bottom-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">
                       {student.package}
                     </div>
@@ -138,7 +138,7 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {recentGallery.map(item => (
                 <div key={item.id} className="relative aspect-square rounded-[2rem] overflow-hidden group">
-                  <img src={item.url} alt={item.title} className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" />
+                  <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
                     <p className="text-[8px] text-blue-400 font-black uppercase tracking-widest mb-1">{item.category}</p>
                     <p className="text-xs text-white font-bold uppercase tracking-tight">{item.title}</p>
@@ -154,7 +154,7 @@ const Home: React.FC = () => {
       <section className="py-12 border-t border-slate-100 bg-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] mb-8">Trusted by Global Enterprise Leaders</p>
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-30 grayscale">
+          <div className="flex flex-wrap justify-center items-center gap-12 opacity-30">
             {['FORTUNE 500', 'TECH GIANTS', 'STRATEGIC PARTNERS', 'GLOBAL INC.'].map((partner, i) => (
               <span key={i} className="text-2xl font-black text-slate-900 tracking-tighter">{partner}</span>
             ))}

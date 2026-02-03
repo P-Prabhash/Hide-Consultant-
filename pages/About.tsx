@@ -44,7 +44,7 @@ const About: React.FC = () => {
             <img 
               src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2074&auto=format&fit=crop" 
               alt="Our Strategy Team" 
-              className="w-full aspect-[4/5] object-cover grayscale transition-all duration-1000 transform group-hover:scale-105" 
+              className="w-full aspect-[4/5] object-cover transition-all duration-1000 transform group-hover:scale-105" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent"></div>
             

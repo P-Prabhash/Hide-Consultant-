@@ -253,7 +253,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                       {galleryItems.map(item => (
                         <div key={item.id} className="relative aspect-square rounded-[2rem] overflow-hidden border border-slate-800 group shadow-xl">
-                          <img src={item.url} className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" />
+                          <img src={item.url} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110" />
                           <button 
                             onClick={() => deleteItem(item.id, 'gallery')}
                             className="absolute top-4 right-4 p-3 bg-red-600 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all hover:scale-110"

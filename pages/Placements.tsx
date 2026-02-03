@@ -90,6 +90,4 @@ const Placements: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Placements;
+};export default Placements;

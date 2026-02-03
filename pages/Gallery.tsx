@@ -43,7 +43,7 @@ const Gallery: React.FC = () => {
               <img 
                 src={item.url} 
                 alt={item.title} 
-                className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:scale-110" 
+                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110" 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
               
