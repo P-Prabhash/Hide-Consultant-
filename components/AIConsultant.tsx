@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, User, Sparkles, Loader2 } from 'lucide-react';
 import { getAIConsultantResponse } from '../services/geminiService';
 import { ChatMessage } from '../types';
+import { BRAND_LOGO } from '../App';
 
 const AIConsultant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,7 @@ const AIConsultant: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     { 
       role: 'assistant', 
-      content: "Welcome to Hide Consultant. I'm your AI Strategy Advisor. To provide the most tailored guidance, what core business challenge are you currently facing? Are you interested in exploring aggressive scaling strategies, or perhaps optimizing your digital infrastructure for better efficiency?" 
+      content: "Welcome to Hidden Hire IT Consultancy & Services. I'm your AI Strategy Advisor. How can I help you navigate your core business or technology challenges today?" 
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +38,6 @@ const AIConsultant: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-[100] font-sans">
-      {/* Trigger Button */}
       {!isOpen && (
         <button 
           onClick={() => setIsOpen(true)}
@@ -50,14 +50,12 @@ const AIConsultant: React.FC = () => {
         </button>
       )}
 
-      {/* Chat Window */}
       {isOpen && (
         <div className="bg-white w-[380px] h-[550px] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200 animate-in slide-in-from-bottom-10 fade-in duration-300">
-          {/* Header */}
           <div className="bg-blue-600 p-6 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="bg-blue-500 p-2 rounded-xl border border-blue-400">
-                <Bot className="text-white h-5 w-5" />
+              <div className="bg-white p-1 rounded-full border border-blue-400">
+                <img src={BRAND_LOGO} alt="AI" className="h-8 w-8 object-contain" />
               </div>
               <div>
                 <h4 className="text-white font-bold text-sm">AI Strategy Advisor</h4>
@@ -72,15 +70,14 @@ const AIConsultant: React.FC = () => {
             </button>
           </div>
 
-          {/* Messages */}
           <div ref={scrollRef} className="flex-grow overflow-y-auto p-6 space-y-6 bg-slate-50">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`flex max-w-[85%] space-x-2 ${m.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                  <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${
-                    m.role === 'user' ? 'bg-blue-600' : 'bg-slate-200'
+                  <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden ${
+                    m.role === 'user' ? 'bg-blue-600' : 'bg-white border border-slate-200'
                   }`}>
-                    {m.role === 'user' ? <User className="text-white h-4 w-4" /> : <Bot className="text-slate-600 h-4 w-4" />}
+                    {m.role === 'user' ? <User className="text-white h-4 w-4" /> : <img src={BRAND_LOGO} alt="Logo" className="h-6 w-6 object-contain" />}
                   </div>
                   <div className={`p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${
                     m.role === 'user' 
@@ -102,7 +99,6 @@ const AIConsultant: React.FC = () => {
             )}
           </div>
 
-          {/* Footer / Input */}
           <div className="p-4 bg-white border-t border-slate-100">
             <div className="flex items-center space-x-2 bg-slate-100 p-2 rounded-2xl">
               <input 
@@ -121,7 +117,7 @@ const AIConsultant: React.FC = () => {
                 <Send size={18} />
               </button>
             </div>
-            <p className="text-[10px] text-center text-slate-400 mt-3 font-medium">Powered by Hide Consultant Intelligence</p>
+            <p className="text-[10px] text-center text-slate-400 mt-3 font-medium">Powered by Hidden Hire Intelligence</p>
           </div>
         </div>
       )}

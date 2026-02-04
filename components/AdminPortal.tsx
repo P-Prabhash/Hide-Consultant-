@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Lock, X, ShieldCheck, ShieldAlert, LayoutDashboard, Activity, Database, Users, TrendingUp, ArrowRight, LogOut, Sparkles, Upload, Image as ImageIcon, Briefcase, Trash2, CheckCircle2, Award } from 'lucide-react';
 import { GalleryItem, StudentPlacement } from '../types';
+import { BRAND_LOGO } from '../App';
 
 interface AdminPortalProps {
   onClose: () => void;
@@ -118,8 +119,8 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
         {/* Header Bar */}
         <div className="bg-slate-950/80 border-b border-slate-800 px-8 py-6 flex items-center justify-between shrink-0">
           <div className="flex items-center space-x-4">
-            <div className={`p-2.5 rounded-xl ${isAuthenticated ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'bg-slate-800 text-slate-400'}`}>
-              {isAuthenticated ? <ShieldCheck size={20} /> : <Lock size={20} />}
+            <div className={`p-2 rounded-full overflow-hidden ${isAuthenticated ? 'bg-white' : 'bg-slate-800 opacity-50 grayscale'}`}>
+              <img src={BRAND_LOGO} alt="Logo" className="h-8 w-8 object-contain" />
             </div>
             <div>
               <h2 className="text-white font-black text-xs uppercase tracking-[0.25em]">
@@ -183,17 +184,15 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
               <div className="flex-grow overflow-y-auto p-8 md:p-12 custom-scrollbar">
                 {activeTab === 'dashboard' && (
                   <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4">
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
                       {[
-                        { label: "Gallery Assets", value: galleryItems.length + 4, icon: <ImageIcon size={18} />, color: "text-blue-500" },
-                        { label: "Elite Placements", value: students.length, icon: <Award size={18} />, color: "text-emerald-500" },
-                        { label: "Sync Latency", value: "0.2ms", icon: <Activity size={18} />, color: "text-slate-400" },
-                        { label: "Server Status", value: "Optimal", icon: <Database size={18} />, color: "text-slate-400" }
+                        { label: "Gallery Assets", value: galleryItems.length + 4, icon: <ImageIcon size={24} />, color: "text-blue-500" },
+                        { label: "Elite Placements", value: students.length, icon: <Award size={24} />, color: "text-emerald-500" }
                       ].map((stat, i) => (
-                        <div key={i} className="bg-slate-800/30 border border-slate-800 p-6 rounded-[2rem] hover:border-slate-700 transition-all group">
+                        <div key={i} className="bg-slate-800/30 border border-slate-800 p-8 rounded-[2rem] hover:border-slate-700 transition-all group">
                           <div className={`${stat.color} mb-4 group-hover:scale-110 transition-transform`}>{stat.icon}</div>
-                          <div className="text-3xl font-black text-white">{stat.value}</div>
-                          <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mt-1">{stat.label}</div>
+                          <div className="text-4xl font-black text-white">{stat.value}</div>
+                          <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">{stat.label}</div>
                         </div>
                       ))}
                     </div>
@@ -205,7 +204,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
                       </div>
                       <div className="flex items-center space-x-4">
                         <div className="flex -space-x-3">
-                           {[1,2,3].map(n => <div key={n} className="w-12 h-12 rounded-full border-4 border-slate-900 bg-slate-800 shadow-xl"></div>)}
+                           {[1,2,3].map(n => <div key={n} className="w-12 h-12 rounded-full border-4 border-slate-900 bg-slate-800 shadow-xl overflow-hidden flex items-center justify-center"><img src={BRAND_LOGO} className="w-8 h-8 object-contain opacity-20" /></div>)}
                         </div>
                         <div className="text-blue-500 font-black text-[10px] uppercase tracking-widest">+ 24/7 Live</div>
                       </div>
@@ -352,8 +351,8 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
             <div className="flex-grow flex items-center justify-center p-8 md:p-12 bg-slate-900">
               <div className="max-w-md w-full space-y-12">
                 <div className="text-center space-y-6 animate-in fade-in duration-700">
-                  <div className="inline-flex bg-slate-800/50 p-6 rounded-[2.5rem] border border-slate-800 shadow-2xl">
-                    <ShieldAlert className="text-blue-600 h-16 w-16" />
+                  <div className="inline-flex bg-white p-6 rounded-[2.5rem] shadow-2xl">
+                    <img src={BRAND_LOGO} alt="Shield" className="h-24 w-24 object-contain animate-float" />
                   </div>
                   <div className="space-y-2">
                     <h3 className="text-3xl font-black text-white tracking-tighter uppercase leading-none">Access Protocol</h3>
@@ -419,13 +418,22 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
                 </form>
                 
                 <p className="text-center text-[8px] text-slate-700 font-black uppercase tracking-[0.4em]">
-                  Managed by Skilltech Intelligence Systems
+                  © 2024 SKILLTECH SOFTWARE SOLUTIONS PVT LTD
                 </p>
               </div>
             </div>
           )}
         </div>
       </div>
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+          animation: float 4s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 };

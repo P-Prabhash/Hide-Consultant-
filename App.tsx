@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronRight, MessageSquare, Phone, Mail, MapPin, Globe, Award, TrendingUp, Users, ShieldCheck, ArrowRight, Sparkles, Lock, ShieldAlert, LayoutDashboard, Activity, Database } from 'lucide-react';
+import { Menu, X, ChevronRight, MessageSquare, Phone, Mail, MapPin, Globe, Award, TrendingUp, Users, ShieldCheck, ArrowRight, Sparkles, Lock, ShieldAlert, LayoutDashboard, Activity, Database, Terminal } from 'lucide-react';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -11,6 +11,8 @@ import Gallery from './pages/Gallery';
 import Placements from './pages/Placements';
 import AIConsultant from './components/AIConsultant';
 import AdminPortal from './components/AdminPortal';
+
+export const BRAND_LOGO = "https://drive.google.com/uc?export=view&id=1m9TkHT6vKKCqimvyx4PAAVghznKvln8P";
 
 const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,23 +55,19 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
   }, [location.pathname]);
 
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+    <nav className="bg-white border-b border-slate-200 h-20 shrink-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex justify-between h-full">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="bg-blue-600 p-2 rounded-lg group-hover:scale-110 transition-transform">
-                <div className="flex items-center justify-center">
-                  <TrendingUp className="text-white h-6 w-6" />
-                </div>
+            <Link to="/" className="flex items-center group py-2">
+              <div className="bg-white p-0.5 rounded-full group-hover:scale-110 transition-transform flex items-center justify-center">
+                <img src={BRAND_LOGO} alt="Hidden Hire IT Logo" className="h-14 w-14 object-contain" />
               </div>
-              <span className="text-2xl font-bold text-slate-900 tracking-tight uppercase">HIDE<span className="text-blue-600 font-light">CONSULTANT</span></span>
             </Link>
           </div>
           
           <div className="hidden md:flex items-center space-x-6">
             <div className="flex items-center space-x-1 relative mr-2">
-              {/* Sliding Indicator Overlay */}
               <div 
                 className="absolute h-10 bg-blue-50 rounded-xl transition-all duration-300 ease-out pointer-events-none"
                 style={indicatorStyle}
@@ -78,7 +76,6 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
               {navLinks.map((link, idx) => (
                 <Link
                   key={link.name}
-                  // Fix: Ensure the ref callback returns void to satisfy TypeScript's Ref type requirements
                   ref={el => { navRefs.current[idx] = el; }}
                   to={link.path}
                   onMouseEnter={() => {
@@ -102,28 +99,16 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
               ))}
             </div>
             
-            {/* Secret Admin Trigger Zone (Hide and View) */}
-            <div className="group relative h-20 flex items-center px-4 cursor-default">
-              {/* This inner div is invisible by default (hide) and visible on hover (view) */}
-              <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-700 transform translate-x-4 group-hover:translate-x-0">
-                <button 
-                  onClick={onAdmin}
-                  className="flex items-center space-x-2 text-[9px] font-black text-slate-400 hover:text-blue-600 uppercase tracking-[0.2em] border border-slate-200 hover:border-blue-600 px-4 py-2 rounded-xl bg-white shadow-xl transition-all"
-                >
-                  <Lock size={12} />
-                  <span>Terminal</span>
-                </button>
-              </div>
-              {/* Invisible anchor buffer to catch the hover */}
-              <div className="absolute inset-y-0 right-0 w-16 bg-transparent"></div>
-            </div>
+            <button 
+              onClick={onAdmin}
+              className="p-2 text-slate-300 hover:text-slate-900 transition-colors"
+              title="Terminal Access"
+            >
+              <Lock size={16} />
+            </button>
           </div>
 
-          <div className="md:hidden flex items-center space-x-4">
-            {/* Nearly invisible ghost button for mobile admin access */}
-            <button onClick={onAdmin} className="p-2 opacity-[0.03] active:opacity-100 transition-opacity">
-               <Lock size={16} className="text-slate-900" />
-            </button>
+          <div className="md:hidden flex items-center">
             <button onClick={() => setIsOpen(!isOpen)} className="text-slate-900">
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -132,7 +117,7 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white absolute w-full shadow-2xl animate-in slide-in-from-top duration-300 border-b border-slate-100">
+        <div className="md:hidden bg-white absolute w-full shadow-2xl animate-in slide-in-from-top duration-300 border-b border-slate-100 z-50">
           <div className="px-4 pt-2 pb-8 space-y-1">
             {navLinks.map((link) => (
               <Link
@@ -140,10 +125,10 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 className={`block px-5 py-4 text-xs font-black rounded-2xl uppercase tracking-[0.25em] ${
-                   location.pathname === (link.path === '/' ? '/' : link.path) || 
+                   location.pathname === (link.path === '/' ? '/' : link.path) ||
                    (link.path !== '/' && location.pathname.startsWith(link.path))
-                   ? 'text-blue-600 bg-blue-50'
-                   : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                   ? 'text-blue-600 bg-blue-50' 
+                   : 'text-slate-400'
                 }`}
               >
                 {link.name}
@@ -156,38 +141,53 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
   );
 };
 
-const CopyrightBar: React.FC = () => (
-  <div className="bg-blue-600 py-4 flex justify-center items-center shadow-[0_-10px_40px_rgba(37,99,235,0.15)]">
-    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white">
-      © {new Date().getFullYear()} SKILL TECH SOFTWARE SOLUTIONS PVT LTD • APEX CONSULTING
-    </p>
-  </div>
-);
-
 const App: React.FC = () => {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
-  const openAdmin = () => setIsAdminOpen(true);
-  const closeAdmin = () => setIsAdminOpen(false);
-
   return (
     <Router>
-      <div className="h-screen flex flex-col overflow-hidden animate-in fade-in duration-700 bg-white selection:bg-blue-600 selection:text-white">
-        <Navbar onAdmin={openAdmin} />
+      <div className="h-screen w-screen overflow-hidden bg-white flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
+        <Navbar onAdmin={() => setIsAdminOpen(true)} />
+        
         <main className="flex-grow overflow-hidden relative">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/:id" element={<ServiceDetail />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/placements" element={<Placements />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </main>
-        <CopyrightBar />
+
+        <footer className="bg-slate-950 h-14 shrink-0 border-t border-slate-900 px-6 flex items-center justify-between">
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2">
+              <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
+              <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.25em]">System Secure</span>
+            </div>
+            <div className="hidden lg:flex items-center space-x-4 border-l border-slate-800 pl-6">
+              <Link to="/services" className="text-slate-600 hover:text-blue-400 text-[8px] font-black uppercase tracking-widest transition-colors">Directives</Link>
+              <Link to="/gallery" className="text-slate-600 hover:text-blue-400 text-[8px] font-black uppercase tracking-widest transition-colors">Portfolio</Link>
+              <span className="text-slate-800 text-[8px] font-black uppercase tracking-widest">Protocols Monitored</span>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-8">
+            <div className="text-slate-500 text-[8px] font-black uppercase tracking-[0.3em]">
+              © 2024 SKILLTECH SOFTWARE SOLUTIONS PVT LTD
+            </div>
+            <div className="flex items-center space-x-4 border-l border-slate-800 pl-8">
+              <ShieldCheck size={12} className="text-slate-600" />
+              <Activity size={12} className="text-slate-600" />
+              <Terminal size={12} className="text-slate-600" />
+            </div>
+          </div>
+        </footer>
+
         <AIConsultant />
-        {isAdminOpen && <AdminPortal onClose={closeAdmin} />}
+        {isAdminOpen && <AdminPortal onClose={() => setIsAdminOpen(false)} />}
       </div>
     </Router>
   );
