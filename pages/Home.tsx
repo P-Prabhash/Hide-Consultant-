@@ -49,14 +49,18 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Central Blue Split Line - Full height divider perfectly in the middle */}
-      <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px] bg-blue-600/20 z-20">
+      {/* Central Blue Split Line - Full Height, Thick, and Impactful */}
+      <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[8px] bg-blue-50 z-20 overflow-hidden shadow-inner">
         {/* Solid Blue Line Core */}
-        <div className="absolute inset-y-0 left-0 w-full bg-blue-600/60"></div>
-        {/* Glowing Central Indicator */}
+        <div className="absolute inset-y-0 left-0 w-full bg-blue-600/40"></div>
+        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]"></div>
+        
+        {/* Glowing Central Indicator Knob */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-           <div className="w-4 h-4 bg-white rounded-full border-2 border-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.6)]"></div>
-           <div className="absolute w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
+           <div className="w-10 h-10 bg-white rounded-full border-[3px] border-blue-600 shadow-[0_0_25px_rgba(37,99,235,0.6)] flex items-center justify-center z-30">
+              <div className="w-4 h-4 bg-blue-600 rounded-full animate-pulse"></div>
+           </div>
+           <div className="absolute w-6 h-6 bg-blue-400/20 rounded-full animate-ping"></div>
         </div>
       </div>
 
