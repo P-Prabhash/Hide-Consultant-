@@ -45,7 +45,10 @@ const Placements: React.FC = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {placements.map((student) => (
-                <div key={student.id} className="group relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
+                <div 
+                  key={student.id} 
+                  className="group relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 flex flex-col"
+                >
                   {/* Photo Section */}
                   <div className="relative h-64 overflow-hidden">
                     <img 
@@ -90,4 +93,6 @@ const Placements: React.FC = () => {
       </div>
     </div>
   );
-};export default Placements;
+};
+
+export default Placements;

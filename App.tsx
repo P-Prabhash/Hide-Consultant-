@@ -78,7 +78,8 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
               {navLinks.map((link, idx) => (
                 <Link
                   key={link.name}
-                  ref={el => navRefs.current[idx] = el}
+                  // Fix: Ensure the ref callback returns void to satisfy TypeScript's Ref type requirements
+                  ref={el => { navRefs.current[idx] = el; }}
                   to={link.path}
                   onMouseEnter={() => {
                     setHoveredIndex(idx);
