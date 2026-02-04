@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { services } from '../data/servicesData';
+import { BRAND_LOGO } from '../App';
 import { 
   Briefcase, 
   TrendingUp, 
@@ -66,26 +67,29 @@ const ServiceDetail: React.FC = () => {
               <div className="bg-blue-600 text-white p-4 rounded-2xl w-fit shadow-xl shadow-blue-100 mb-6">
                 <IconComponent size={32} />
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight uppercase">
                 {service.title}
               </h1>
               <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
                 {service.longDescription}
               </p>
               <div className="pt-4">
-                <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 inline-flex items-center space-x-2">
+                <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 inline-flex items-center space-x-2 uppercase tracking-widest text-[10px]">
                   <span>Discuss Your Project</span>
-                  <ChevronRight size={20} />
+                  <ChevronRight size={14} />
                 </Link>
               </div>
             </div>
             <div className="relative">
               <div className="absolute -inset-4 bg-blue-50 rounded-3xl -rotate-2 scale-105 opacity-50"></div>
-              <img 
-                src={`https://picsum.photos/seed/${service.id}/800/600`} 
-                alt={service.title} 
-                className="relative rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3] border-4 border-white"
-              />
+              <div className="relative rounded-2xl shadow-2xl w-full h-auto aspect-[4/3] border-4 border-white bg-slate-50 flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white"></div>
+                <img 
+                  src={BRAND_LOGO} 
+                  alt={service.title} 
+                  className="w-3/4 h-3/4 object-contain drop-shadow-2xl animate-pulse"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -98,7 +102,7 @@ const ServiceDetail: React.FC = () => {
             {/* Features */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Core Expertise & Focus</h2>
+                <h2 className="text-2xl font-bold text-slate-900 tracking-tight uppercase">Core Expertise</h2>
                 <div className="h-1 w-20 bg-blue-600 rounded-full"></div>
               </div>
               <ul className="space-y-4">
@@ -118,7 +122,7 @@ const ServiceDetail: React.FC = () => {
             {/* Benefits */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Business Outcomes</h2>
+                <h2 className="text-2xl font-bold text-slate-900 tracking-tight uppercase">Business Outcomes</h2>
                 <div className="h-1 w-20 bg-blue-600 rounded-full"></div>
               </div>
               <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden">
@@ -131,29 +135,11 @@ const ServiceDetail: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-12 pt-8 border-t border-slate-800 text-slate-400 text-sm italic">
-                  *Results based on historical project averages and client feedback.
+                <div className="mt-12 pt-8 border-t border-slate-800 text-slate-400 text-[10px] uppercase font-black tracking-widest">
+                  Protocol Certified Performance
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Case Study Teaser */}
-      <section className="pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-[3rem] p-8 md:p-16 border border-slate-200 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="space-y-4 max-w-xl">
-              <h3 className="text-3xl font-bold text-slate-900 leading-tight">See this expertise in action.</h3>
-              <p className="text-slate-500">
-                Explore our recent success stories where we implemented {service.title} for market leaders and rapidly scaling startups.
-              </p>
-            </div>
-            <Link to="/gallery" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg flex items-center space-x-2 whitespace-nowrap">
-              <span>View Case Studies</span>
-              <ChevronRight size={20} />
-            </Link>
           </div>
         </div>
       </section>

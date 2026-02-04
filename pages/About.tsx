@@ -1,7 +1,6 @@
 import React from 'react';
 import { Target, Eye, Heart, Award, ShieldCheck, Sparkles } from 'lucide-react';
-
-const BRAND_LOGO = "https://drive.google.com/uc?export=view&id=1m9TkHT6vKKCqimvyx4PAAVghznKvln8P";
+import { BRAND_LOGO } from '../App';
 
 const About: React.FC = () => {
   return (
@@ -40,7 +39,7 @@ const About: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Side: Visual Branding - Using the Logo as the main asset */}
+        {/* Right Side: Visual Branding - Fixed Identity Asset */}
         <div className="relative animate-in fade-in slide-in-from-right duration-1000 hidden lg:block">
           <div className="relative rounded-[3rem] overflow-hidden bg-slate-50 aspect-[4/5] flex items-center justify-center border border-slate-100 shadow-2xl group">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-white"></div>

@@ -12,7 +12,8 @@ import Placements from './pages/Placements';
 import AIConsultant from './components/AIConsultant';
 import AdminPortal from './components/AdminPortal';
 
-export const BRAND_LOGO = "https://drive.google.com/uc?export=view&id=1m9TkHT6vKKCqimvyx4PAAVghznKvln8P";
+// Official Hidden Hire IT Logo - Centered Circular Monogram
+export const BRAND_LOGO = "https://lh3.googleusercontent.com/geougc-cs/ABOP9psOx07t-qWGve_EdCeOGpAi7UeA6EkA7GknumBlSKSiv2UaVjtRtjx6Utn68RDGw45Qv6151VIKeH41l1mpUL2g7yfqcpSasJf55FUz9ttGyDZlRYRawuRhWmQeHwR0RPUMiQujvWpyCws=w336-h336-p";
 
 const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,9 +60,17 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between h-full">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center group py-2">
-              <div className="bg-white p-0.5 rounded-full group-hover:scale-110 transition-transform flex items-center justify-center">
-                <img src={BRAND_LOGO} alt="Hidden Hire IT Logo" className="h-14 w-14 object-contain" />
+            <Link to="/" className="flex items-center group py-2 space-x-3">
+              <div className="bg-white p-0.5 rounded-full group-hover:scale-105 transition-transform flex items-center justify-center">
+                <img src={BRAND_LOGO} alt="Hidden Hire IT Logo" className="h-20 w-20 object-contain" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-slate-900 font-black text-sm uppercase tracking-[0.15em] group-hover:text-blue-600 transition-colors leading-none">
+                  Hidden Hire IT
+                </span>
+                <span className="text-[7px] text-slate-400 font-black uppercase tracking-[0.3em] mt-1">
+                  Consultancy & Services
+                </span>
               </div>
             </Link>
           </div>
@@ -164,6 +173,7 @@ const App: React.FC = () => {
         <footer className="bg-slate-950 h-14 shrink-0 border-t border-slate-900 px-6 flex items-center justify-between">
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
+              <img src={BRAND_LOGO} alt="Hidden Hire IT" className="h-8 w-8 object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />
               <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
               <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.25em]">System Secure</span>
             </div>

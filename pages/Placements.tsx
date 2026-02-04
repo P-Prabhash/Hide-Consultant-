@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Award, Briefcase, TrendingUp, Sparkles, User } from 'lucide-react';
 import { StudentPlacement } from '../types';
-
-const BRAND_LOGO = "https://drive.google.com/uc?export=view&id=1m9TkHT6vKKCqimvyx4PAAVghznKvln8P";
+import { BRAND_LOGO } from '../App';
 
 const Placements: React.FC = () => {
   const [placements, setPlacements] = useState<StudentPlacement[]>([]);
@@ -45,11 +44,11 @@ const Placements: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pr-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pr-2">
               {placements.map((student) => (
                 <div 
                   key={student.id} 
-                  className="group relative bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col h-fit"
+                  className="group relative bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:scale-[1.03] hover:border-blue-100 transition-all duration-500 flex flex-col h-fit cursor-pointer"
                 >
                   <div className="relative h-48 overflow-hidden shrink-0">
                     <img 

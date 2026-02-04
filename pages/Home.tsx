@@ -8,34 +8,41 @@ const Home: React.FC = () => {
     <div className="h-full w-full overflow-hidden bg-white flex flex-col lg:flex-row relative">
       {/* Strategic Core (Left Half) */}
       <div className="w-full lg:w-1/2 h-full relative flex flex-col items-center justify-center px-8 md:px-16 lg:pr-12 lg:pl-16 bg-white overflow-hidden text-center">
-        {/* Abstract Background Accents - Updated to Blue */}
+        {/* Abstract Background Accents */}
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] pointer-events-none opacity-60"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-blue-50 rounded-full blur-[100px] pointer-events-none opacity-40"></div>
         
-        <div className="relative z-10 space-y-4 animate-in fade-in slide-in-from-bottom duration-700 flex flex-col items-center">
+        <div className="relative z-10 space-y-6 animate-in fade-in slide-in-from-bottom duration-700 flex flex-col items-center">
           <div className="animate-in zoom-in duration-1000">
-            <div className="relative w-48 h-48 md:w-[22rem] md:h-[22rem] flex items-center justify-center">
-              <div className="absolute inset-0 bg-blue-100/30 rounded-full blur-[60px] animate-pulse"></div>
+            <div className="relative w-48 h-48 md:w-72 md:h-72 flex items-center justify-center">
+              <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-[80px] animate-pulse"></div>
               <img 
                 src={BRAND_LOGO} 
                 alt="Hidden Hire IT Official Logo" 
-                className="relative w-full h-full object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.06)] hover:scale-105 transition-transform duration-700 animate-float"
+                className="relative w-full h-full object-contain drop-shadow-[0_25px_60px_rgba(37,99,235,0.15)] hover:scale-105 transition-transform duration-700 animate-float"
               />
             </div>
           </div>
           
-          <div className="space-y-4 flex flex-col items-center">
-            {/* Decreased font size and changed to Blue theme */}
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-black text-blue-900 leading-[1.1] tracking-tighter uppercase max-w-xl mx-auto">
-              HIDDEN HIRE <span className="text-blue-600 block">IT</span> CONSULTANCY & SERVICES.
+          <div className="space-y-6 flex flex-col items-center">
+            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-black leading-[1.1] tracking-tight uppercase max-w-xl mx-auto flex flex-col items-center">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-950">
+                HIDDEN HIRE
+              </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-sky-400 py-1">
+                IT
+              </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-950">
+                CONSULTANCY & SERVICES.
+              </span>
             </h1>
-            <div className="w-12 h-1 bg-blue-600 rounded-full"></div>
-            <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.4em]">Elite Business Consultancy Protocol Active</p>
+            <div className="w-10 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full"></div>
+            <p className="text-[7px] font-black text-slate-400 uppercase tracking-[0.5em]">Unlock Hidden Opportunities</p>
           </div>
         </div>
       </div>
 
-      {/* Central Split Line - Updated to Blue */}
+      {/* Central Split Line */}
       <div className="hidden lg:block absolute left-1/2 top-[1.5cm] bottom-[1.5cm] -translate-x-1/2 w-[6px] bg-blue-50/50 z-20 overflow-hidden rounded-full">
         <div className="absolute inset-y-0 left-0 w-full bg-blue-600/10"></div>
         <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-blue-600/40"></div>
@@ -46,7 +53,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Program Pillar Cards (Right Half) - Updated hover and icons to Blue */}
+      {/* Program Pillar Cards */}
       <div className="w-full lg:w-1/2 h-full bg-slate-50 p-6 lg:pl-16 lg:pr-10 flex items-center overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full h-[90%]">
           
@@ -164,7 +171,7 @@ const Home: React.FC = () => {
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) scale(1); }
-          50% { transform: translateY(-10px) scale(1.01); }
+          50% { transform: translateY(-10px) scale(1.02); }
         }
         .animate-float {
           animation: float 6s ease-in-out infinite;
