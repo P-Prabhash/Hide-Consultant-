@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronRight, MessageSquare, Phone, Mail, MapPin, Globe, Award, TrendingUp, Users, ShieldCheck, ArrowRight, Sparkles, Lock, ShieldAlert, LayoutDashboard, Activity, Database, Terminal } from 'lucide-react';
@@ -11,9 +12,10 @@ import Gallery from './pages/Gallery';
 import Placements from './pages/Placements';
 import AIConsultant from './components/AIConsultant';
 import AdminPortal from './components/AdminPortal';
+import { ASSET_VAULT } from './assets/images/registry';
 
-// Official Hidden Hire IT Logo - Centered Circular Monogram
-export const BRAND_LOGO = "https://lh3.googleusercontent.com/geougc-cs/ABOP9psOx07t-qWGve_EdCeOGpAi7UeA6EkA7GknumBlSKSiv2UaVjtRtjx6Utn68RDGw45Qv6151VIKeH41l1mpUL2g7yfqcpSasJf55FUz9ttGyDZlRYRawuRhWmQeHwR0RPUMiQujvWpyCws=w336-h336-p";
+// Global access to the branding identity from the fixed folder
+export const BRAND_LOGO = ASSET_VAULT.branding.logo;
 
 const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,7 +97,7 @@ const Navbar: React.FC<{ onAdmin: () => void }> = ({ onAdmin }) => {
                     setHoveredIndex(null);
                     updateIndicator(null);
                   }}
-                  className={`relative z-10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-300 ${
+                  className={`relative z-10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-300 flex items-center space-x-1 ${
                     location.pathname === (link.path === '/' ? '/' : link.path) || 
                     (link.path !== '/' && location.pathname.startsWith(link.path)) ||
                     hoveredIndex === idx
@@ -179,7 +181,6 @@ const App: React.FC = () => {
             </div>
             <div className="hidden lg:flex items-center space-x-4 border-l border-slate-800 pl-6">
               <Link to="/services" className="text-slate-600 hover:text-blue-400 text-[8px] font-black uppercase tracking-widest transition-colors">Directives</Link>
-              <Link to="/gallery" className="text-slate-600 hover:text-blue-400 text-[8px] font-black uppercase tracking-widest transition-colors">Portfolio</Link>
               <span className="text-slate-800 text-[8px] font-black uppercase tracking-widest">Protocols Monitored</span>
             </div>
           </div>

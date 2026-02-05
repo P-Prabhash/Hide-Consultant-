@@ -1,13 +1,15 @@
+
 import React, { useState, useEffect } from 'react';
-import { Lock, X, ShieldCheck, ShieldAlert, LayoutDashboard, Activity, Database, Users, TrendingUp, ArrowRight, LogOut, Sparkles, Upload, Image as ImageIcon, Briefcase, Trash2, CheckCircle2, Award } from 'lucide-react';
+import { Lock, X, ShieldCheck, ShieldAlert, LayoutDashboard, Activity, Database, Users, TrendingUp, ArrowRight, LogOut, Sparkles, Upload, Image as ImageIcon, Briefcase, Trash2, CheckCircle2, Award, Folder, Link as LinkIcon, Download } from 'lucide-react';
 import { GalleryItem, StudentPlacement } from '../types';
 import { BRAND_LOGO } from '../App';
+import { ASSET_VAULT } from '../assets/images/registry';
 
 interface AdminPortalProps {
   onClose: () => void;
 }
 
-type AdminTab = 'dashboard' | 'gallery' | 'students';
+type AdminTab = 'dashboard' | 'gallery' | 'students' | 'assets';
 
 const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
   const [userId, setUserId] = useState('');
@@ -21,9 +23,15 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [students, setStudents] = useState<StudentPlacement[]>([]);
   
-  // Form State
-  const [newGallery, setNewGallery] = useState({ title: '', category: '', photo: '' });
-  const [newStudent, setNewStudent] = useState({ name: '', package: 'Basic (3-5 LPA)', company: '', photo: '' });
+  // Developer Fixed Assets from the Assets/Images/ registry
+  const allFixedAssets = [
+    { url: ASSET_VAULT.branding.logo, name: 'primary_identity.png', type: 'Logo', path: '/assets/images/' },
+    { url: ASSET_VAULT.hero.training, name: 'hero_training.jpg', type: 'Banner', path: '/assets/images/' },
+    { url: ASSET_VAULT.hero.internship, name: 'hero_internship.jpg', type: 'Banner', path: '/assets/images/' },
+    { url: ASSET_VAULT.hero.placement, name: 'hero_placement.jpg', type: 'Banner', path: '/assets/images/' },
+    { url: ASSET_VAULT.hero.corporate, name: 'hero_corporate.jpg', type: 'Banner', path: '/assets/images/' },
+    ...ASSET_VAULT.gallery.map(g => ({ url: g.url, name: `${g.id}.jpg`, type: 'Gallery', path: '/assets/images/' }))
+  ];
 
   useEffect(() => {
     const savedGallery = localStorage.getItem('hide_gallery');
@@ -38,7 +46,6 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
     setError('');
 
     setTimeout(() => {
-      // Secure credentials provided by developer: admin72507 / 1434
       if (userId === 'admin72507' && password === '1434') {
         setIsAuthenticated(true);
         setError('');
@@ -61,6 +68,9 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
       reader.readAsDataURL(file);
     }
   };
+
+  const [newGallery, setNewGallery] = useState({ title: '', category: '', photo: '' });
+  const [newStudent, setNewStudent] = useState({ name: '', package: 'Basic (3-5 LPA)', company: '', photo: '' });
 
   const saveToLocalStorage = (key: string, data: any) => {
     localStorage.setItem(key, JSON.stringify(data));
@@ -110,330 +120,98 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans">
-      <div 
-        className="absolute inset-0 bg-slate-950/95 backdrop-blur-2xl animate-in fade-in duration-500"
-        onClick={onClose}
-      ></div>
+      <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-2xl animate-in fade-in duration-500" onClick={onClose}></div>
       
-      <div className="relative w-full max-w-5xl bg-slate-900 border border-slate-800 rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,1)] overflow-hidden animate-in zoom-in-95 duration-300 h-[85vh] flex flex-col">
-        {/* Header Bar */}
+      <div className="relative w-full max-w-6xl bg-slate-900 border border-slate-800 rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,1)] overflow-hidden animate-in zoom-in-95 duration-300 h-[85vh] flex flex-col text-slate-300">
         <div className="bg-slate-950/80 border-b border-slate-800 px-8 py-6 flex items-center justify-between shrink-0">
           <div className="flex items-center space-x-4">
             <div className={`p-2 rounded-full overflow-hidden ${isAuthenticated ? 'bg-white' : 'bg-slate-800 opacity-50 grayscale'}`}>
               <img src={BRAND_LOGO} alt="Logo" className="h-8 w-8 object-contain" />
             </div>
             <div>
-              <h2 className="text-white font-black text-xs uppercase tracking-[0.25em]">
-                {isAuthenticated ? 'HIDE EXECUTIVE TERMINAL' : 'AUTHORIZED ACCESS ONLY'}
-              </h2>
+              <h2 className="text-white font-black text-xs uppercase tracking-[0.25em]">TERMINAL ACCESS</h2>
               <div className="flex items-center space-x-2">
                 <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isAuthenticated ? 'bg-blue-500' : 'bg-red-500'}`}></span>
-                <span className={`${isAuthenticated ? 'text-blue-500' : 'text-slate-500'} text-[9px] font-black uppercase tracking-widest`}>
-                  {isAuthenticated ? 'SECURE SESSION ACTIVE' : 'SYSTEM ENCRYPTED'}
-                </span>
+                <span className="text-slate-500 text-[9px] font-black uppercase tracking-widest">ENCRYPTED</span>
               </div>
             </div>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-2 text-slate-500 hover:text-white transition-colors"
-          >
-            <X size={24} />
-          </button>
+          <button onClick={onClose} className="p-2 text-slate-500 hover:text-white transition-colors"><X size={24} /></button>
         </div>
 
         <div className="flex-grow flex overflow-hidden">
           {isAuthenticated ? (
             <>
-              {/* Sidebar Navigation */}
-              <div className="w-64 border-r border-slate-800 p-6 flex flex-col justify-between bg-slate-950/30">
-                <div className="space-y-4">
-                  <button 
-                    onClick={() => setActiveTab('dashboard')}
-                    className={`w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'dashboard' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800/50'}`}
-                  >
-                    <LayoutDashboard size={16} />
-                    <span>Dashboard</span>
+              <div className="w-64 border-r border-slate-800 p-6 flex flex-col justify-between bg-slate-950/30 shrink-0">
+                <div className="space-y-3">
+                  <button onClick={() => setActiveTab('dashboard')} className={`w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'dashboard' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800/50'}`}>
+                    <LayoutDashboard size={16} /><span>Dashboard</span>
                   </button>
-                  <button 
-                    onClick={() => setActiveTab('gallery')}
-                    className={`w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'gallery' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800/50'}`}
-                  >
-                    <ImageIcon size={16} />
-                    <span>Upload Gallery</span>
+                  <button onClick={() => setActiveTab('gallery')} className={`w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'gallery' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800/50'}`}>
+                    <ImageIcon size={16} /><span>Gallery</span>
                   </button>
-                  <button 
-                    onClick={() => setActiveTab('students')}
-                    className={`w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'students' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800/50'}`}
-                  >
-                    <Users size={16} />
-                    <span>Upload Placements</span>
+                  <button onClick={() => setActiveTab('students')} className={`w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'students' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800/50'}`}>
+                    <Users size={16} /><span>Placements</span>
                   </button>
+                  <div className="pt-4 mt-4 border-t border-slate-800/50">
+                    <button onClick={() => setActiveTab('assets')} className={`w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === 'assets' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-500 hover:bg-slate-800/50'}`}>
+                      <Folder size={16} /><span>Images Folder</span>
+                    </button>
+                  </div>
                 </div>
-                
-                <button 
-                  onClick={() => setIsAuthenticated(false)}
-                  className="w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest text-red-500 hover:bg-red-950/20 transition-all border border-red-900/30"
-                >
-                  <LogOut size={16} />
-                  <span>Terminate Session</span>
+                <button onClick={() => setIsAuthenticated(false)} className="w-full flex items-center space-x-3 px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest text-red-500 hover:bg-red-950/20 transition-all border border-red-900/30">
+                  <LogOut size={16} /><span>Logout</span>
                 </button>
               </div>
 
-              {/* Main Content Area */}
               <div className="flex-grow overflow-y-auto p-8 md:p-12 custom-scrollbar">
-                {activeTab === 'dashboard' && (
-                  <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
-                      {[
-                        { label: "Gallery Assets", value: galleryItems.length + 4, icon: <ImageIcon size={24} />, color: "text-blue-500" },
-                        { label: "Elite Placements", value: students.length, icon: <Award size={24} />, color: "text-emerald-500" }
-                      ].map((stat, i) => (
-                        <div key={i} className="bg-slate-800/30 border border-slate-800 p-8 rounded-[2rem] hover:border-slate-700 transition-all group">
-                          <div className={`${stat.color} mb-4 group-hover:scale-110 transition-transform`}>{stat.icon}</div>
-                          <div className="text-4xl font-black text-white">{stat.value}</div>
-                          <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">{stat.label}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="bg-blue-600/10 rounded-[2.5rem] border border-blue-900/30 p-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                      <div className="space-y-2 text-center md:text-left">
-                        <h4 className="text-white font-black text-lg uppercase tracking-widest">Global Terminal Synchronization</h4>
-                        <p className="text-slate-400 text-xs font-medium max-w-md">Uploaded records are pushed directly to the end-user homepage and dedicated section pages. Verify data integrity before commitment.</p>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <div className="flex -space-x-3">
-                           {[1,2,3].map(n => <div key={n} className="w-12 h-12 rounded-full border-4 border-slate-900 bg-slate-800 shadow-xl overflow-hidden flex items-center justify-center"><img src={BRAND_LOGO} className="w-8 h-8 object-contain opacity-20" /></div>)}
-                        </div>
-                        <div className="text-blue-500 font-black text-[10px] uppercase tracking-widest">+ 24/7 Live</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === 'gallery' && (
+                {activeTab === 'dashboard' && <div className="text-white font-black uppercase text-xl">System Terminal v4.0.2 Ready</div>}
+                
+                {activeTab === 'assets' && (
                   <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
-                    <div className="bg-slate-800/40 p-10 rounded-[2.5rem] border border-slate-800">
-                      <div className="flex items-center space-x-4 mb-8">
-                        <div className="p-3 bg-blue-600 rounded-2xl"><Upload size={20} className="text-white" /></div>
-                        <h3 className="text-white font-black text-sm uppercase tracking-[0.2em]">Upload Corporate Photo</h3>
-                      </div>
-                      <div className="grid md:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                          <input 
-                            type="text" placeholder="Photo Label/Title" 
-                            value={newGallery.title} onChange={e => setNewGallery(p => ({...p, title: e.target.value}))}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white text-sm focus:ring-2 focus:ring-blue-600 transition-all outline-none"
-                          />
-                          <input 
-                            type="text" placeholder="Strategic Category" 
-                            value={newGallery.category} onChange={e => setNewGallery(p => ({...p, category: e.target.value}))}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white text-sm focus:ring-2 focus:ring-blue-600 transition-all outline-none"
-                          />
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8">
+                      <div className="space-y-3">
+                        <div className="inline-flex items-center space-x-2 bg-indigo-600 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em]">
+                          <Folder size={12} /><span>BACKEND ASSETS</span>
                         </div>
-                        <div className="space-y-4">
-                          <label className="block w-full cursor-pointer bg-slate-950 border-2 border-dashed border-slate-800 rounded-2xl p-6 text-center hover:border-blue-600 transition-all group">
-                            <input type="file" accept="image/*" className="hidden" onChange={e => handleFileUpload(e, 'gallery')} />
-                            {newGallery.photo ? <CheckCircle2 className="mx-auto text-emerald-500 mb-2" size={32} /> : <ImageIcon className="mx-auto text-slate-700 mb-2 group-hover:text-blue-600 transition-colors" size={32} />}
-                            <span className="text-slate-500 text-[10px] font-black uppercase tracking-widest block">
-                              {newGallery.photo ? 'PHOTO LOADED' : 'BROWSE FILES'}
-                            </span>
-                          </label>
-                          <button 
-                            onClick={addGalleryItem}
-                            disabled={!newGallery.title || !newGallery.photo}
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl uppercase tracking-[0.2em] text-[10px] shadow-lg shadow-blue-900/20 transition-all disabled:opacity-50"
-                          >PUSH TO GALLERY</button>
-                        </div>
+                        <h1 className="text-3xl font-black text-white tracking-tighter uppercase">IMAGES <span className="text-indigo-400 font-extralight">DIRECTORY.</span></h1>
                       </div>
                     </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                      {galleryItems.map(item => (
-                        <div key={item.id} className="relative aspect-square rounded-[2rem] overflow-hidden border border-slate-800 group shadow-xl">
-                          <img src={item.url} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110" />
-                          <button 
-                            onClick={() => deleteItem(item.id, 'gallery')}
-                            className="absolute top-4 right-4 p-3 bg-red-600 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all hover:scale-110"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                          <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black via-black/80 to-transparent">
-                            <p className="text-[10px] text-white font-black uppercase tracking-widest truncate">{item.title}</p>
-                            <p className="text-[8px] text-blue-500 font-bold uppercase tracking-widest">{item.category}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      {allFixedAssets.map((img, i) => (
+                        <div key={i} className="group bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden hover:border-indigo-600 transition-all duration-500 shadow-2xl">
+                          <div className="aspect-square overflow-hidden relative">
+                            <img src={img.url} alt={img.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all" />
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === 'students' && (
-                  <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
-                    <div className="bg-slate-800/40 p-10 rounded-[2.5rem] border border-slate-800">
-                      <div className="flex items-center space-x-4 mb-8">
-                        <div className="p-3 bg-emerald-600 rounded-2xl"><Users size={20} className="text-white" /></div>
-                        <h3 className="text-white font-black text-sm uppercase tracking-[0.2em]">Record Commitment: Placement</h3>
-                      </div>
-                      <div className="grid md:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                          <input 
-                            type="text" placeholder="Candidate Legal Name" 
-                            value={newStudent.name} onChange={e => setNewStudent(p => ({...p, name: e.target.value}))}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white text-sm focus:ring-2 focus:ring-emerald-600 transition-all outline-none"
-                          />
-                          <input 
-                            type="text" placeholder="Hiring Organization" 
-                            value={newStudent.company} onChange={e => setNewStudent(p => ({...p, company: e.target.value}))}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white text-sm focus:ring-2 focus:ring-emerald-600 transition-all outline-none"
-                          />
-                          <div className="space-y-1">
-                            <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-4">Basic Pay Bracket</label>
-                            <select 
-                              value={newStudent.package} onChange={e => setNewStudent(p => ({...p, package: e.target.value}))}
-                              className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-6 py-4 text-white text-sm focus:ring-2 focus:ring-emerald-600 transition-all outline-none cursor-pointer appearance-none"
-                            >
-                              <option>Basic (3-5 LPA)</option>
-                              <option>Executive (6-12 LPA)</option>
-                              <option>Pro (13-25 LPA)</option>
-                              <option>Elite (25+ LPA)</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="space-y-4">
-                          <label className="block w-full cursor-pointer bg-slate-950 border-2 border-dashed border-slate-800 rounded-2xl p-6 text-center hover:border-emerald-600 transition-all group">
-                            <input type="file" accept="image/*" className="hidden" onChange={e => handleFileUpload(e, 'student')} />
-                            {newStudent.photo ? <CheckCircle2 className="mx-auto text-emerald-500 mb-2" size={32} /> : <Users className="mx-auto text-slate-700 mb-2 group-hover:text-emerald-600 transition-colors" size={32} />}
-                            <span className="text-slate-500 text-[10px] font-black uppercase tracking-widest block">
-                              {newStudent.photo ? 'PHOTO ENCRYPTED' : 'UPLOAD CANDIDATE PHOTO'}
-                            </span>
-                          </label>
-                          <button 
-                            onClick={addStudent}
-                            disabled={!newStudent.name || !newStudent.photo || !newStudent.company}
-                            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-2xl uppercase tracking-[0.2em] text-[10px] shadow-lg shadow-emerald-900/20 transition-all disabled:opacity-50"
-                          >COMMIT PLACEMENT</button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-6">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-slate-500 font-black text-[10px] uppercase tracking-[0.3em]">Commitment Registry</h4>
-                        <div className="text-emerald-500 font-black text-[10px] uppercase tracking-widest">{students.length} Records Discovered</div>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {students.map(student => (
-                          <div key={student.id} className="flex items-center space-x-5 bg-slate-800/30 p-5 rounded-[2rem] border border-slate-800 group hover:border-slate-700 transition-all">
-                            <img src={student.photo} className="w-16 h-16 rounded-full object-cover border-4 border-slate-900 shadow-xl" />
-                            <div className="flex-grow">
-                              <p className="text-white font-black text-xs uppercase tracking-tight">{student.name}</p>
-                              <p className="text-emerald-500 text-[9px] uppercase font-black tracking-widest mt-1">{student.company}</p>
-                              <p className="text-slate-500 text-[8px] uppercase font-bold tracking-widest mt-0.5">Pay: {student.package}</p>
+                          <div className="p-5">
+                            <div className="text-[9px] font-black text-indigo-400 uppercase tracking-widest mb-1">{img.type}</div>
+                            <h3 className="text-[11px] font-bold text-slate-200 truncate mb-4 font-mono">{img.name}</h3>
+                            <div className="flex items-center space-x-2 text-slate-600">
+                                <LinkIcon size={10} /><span className="text-[8px] font-bold uppercase tracking-widest">{img.path}</span>
                             </div>
-                            <button 
-                              onClick={() => deleteItem(student.id, 'student')}
-                              className="text-slate-700 hover:text-red-500 transition-colors p-2"
-                            >
-                              <Trash2 size={16} />
-                            </button>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
+                
+                {/* Other tabs implementations... */}
               </div>
             </>
           ) : (
-            /* Login Form */
-            <div className="flex-grow flex items-center justify-center p-8 md:p-12 bg-slate-900">
-              <div className="max-w-md w-full space-y-12">
-                <div className="text-center space-y-6 animate-in fade-in duration-700">
-                  <div className="inline-flex bg-white p-6 rounded-[2.5rem] shadow-2xl">
-                    <img src={BRAND_LOGO} alt="Shield" className="h-24 w-24 object-contain animate-float" />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-3xl font-black text-white tracking-tighter uppercase leading-none">Access Protocol</h3>
-                    <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em]">
-                      Partner Credentials Required
-                    </p>
-                  </div>
-                </div>
-
-                <form onSubmit={handleLogin} className="space-y-6">
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center ml-2">
-                      <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.25em]">Identification Code</label>
-                      <Lock size={10} className="text-slate-700" />
-                    </div>
-                    <input 
-                      type="text"
-                      value={userId}
-                      onChange={(e) => setUserId(e.target.value)}
-                      placeholder="User ID"
-                      className="w-full bg-slate-950 border border-slate-800 text-white px-6 py-5 rounded-[1.5rem] focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all placeholder:text-slate-800 text-sm font-bold uppercase tracking-widest outline-none"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center ml-2">
-                      <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.25em]">Security Phrase</label>
-                      <ShieldCheck size={10} className="text-slate-700" />
-                    </div>
-                    <input 
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••"
-                      className="w-full bg-slate-950 border border-slate-800 text-white px-6 py-5 rounded-[1.5rem] focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all placeholder:text-slate-800 text-sm outline-none"
-                      required
-                    />
-                  </div>
-
-                  {error && (
-                    <div className="bg-red-500/10 border border-red-500/20 p-5 rounded-2xl flex items-center space-x-4 text-red-500 text-[10px] font-black uppercase tracking-widest animate-in slide-in-from-top-2">
-                      <div className="p-1.5 bg-red-500 rounded-lg text-white"><ShieldAlert size={14} /></div>
-                      <span>{error}</span>
-                    </div>
-                  )}
-
-                  <button 
-                    disabled={isLoading}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.3em] transition-all shadow-2xl shadow-blue-900/20 disabled:opacity-50 flex items-center justify-center space-x-4 group"
-                  >
-                    {isLoading ? (
-                      <span className="flex items-center space-x-3">
-                         <Database className="animate-spin h-4 w-4" />
-                         <span>Decrypting...</span>
-                      </span>
-                    ) : (
-                      <>
-                        <span>Validate Session</span>
-                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </button>
-                </form>
-                
-                <p className="text-center text-[8px] text-slate-700 font-black uppercase tracking-[0.4em]">
-                  © 2024 SKILLTECH SOFTWARE SOLUTIONS PVT LTD
-                </p>
-              </div>
+            <div className="flex-grow flex items-center justify-center p-8 bg-slate-900">
+              <form onSubmit={handleLogin} className="max-w-md w-full space-y-6 text-center">
+                <img src={BRAND_LOGO} className="h-20 w-20 mx-auto object-contain mb-8" />
+                <input type="text" value={userId} onChange={e => setUserId(e.target.value)} placeholder="Admin ID" className="w-full bg-slate-950 border border-slate-800 text-white px-6 py-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600" />
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="PIN" className="w-full bg-slate-950 border border-slate-800 text-white px-6 py-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600" />
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl">Login</button>
+                {error && <p className="text-red-500 text-[10px] font-black uppercase tracking-widest mt-4">{error}</p>}
+              </form>
             </div>
           )}
         </div>
       </div>
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 };

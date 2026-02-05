@@ -1,14 +1,15 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, GraduationCap, Briefcase, Award } from 'lucide-react';
 import { BRAND_LOGO } from '../App';
+import { ASSET_VAULT } from '../assets/images/registry';
 
 const Home: React.FC = () => {
   return (
     <div className="h-full w-full overflow-hidden bg-white flex flex-col lg:flex-row relative">
       {/* Strategic Core (Left Half) */}
       <div className="w-full lg:w-1/2 h-full relative flex flex-col items-center justify-center px-8 md:px-16 lg:pr-12 lg:pl-16 bg-white overflow-hidden text-center">
-        {/* Abstract Background Accents */}
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] pointer-events-none opacity-60"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-blue-50 rounded-full blur-[100px] pointer-events-none opacity-40"></div>
         
@@ -42,26 +43,14 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Central Split Line */}
-      <div className="hidden lg:block absolute left-1/2 top-[1.5cm] bottom-[1.5cm] -translate-x-1/2 w-[6px] bg-blue-50/50 z-20 overflow-hidden rounded-full">
-        <div className="absolute inset-y-0 left-0 w-full bg-blue-600/10"></div>
-        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-blue-600/40"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-           <div className="w-8 h-8 bg-white rounded-full border-[2px] border-blue-600 shadow-xl flex items-center justify-center z-30">
-              <div className="w-2.5 h-2.5 bg-blue-600 rounded-full animate-pulse"></div>
-           </div>
-        </div>
-      </div>
-
       {/* Program Pillar Cards */}
       <div className="w-full lg:w-1/2 h-full bg-slate-50 p-6 lg:pl-16 lg:pr-10 flex items-center overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full h-[90%]">
           
-          {/* Card 1: Training */}
           <div className="bg-white rounded-[2rem] border border-slate-200 overflow-hidden shadow-sm hover:shadow-2xl hover:scale-105 transition-all duration-500 flex flex-col group cursor-pointer">
             <div className="relative h-[35%] overflow-hidden shrink-0">
               <img 
-                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" 
+                src={ASSET_VAULT.hero.training} 
                 alt="Professional Training" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -76,16 +65,8 @@ const Home: React.FC = () => {
                   Tier 1 Skillset
                 </div>
                 <h2 className="text-lg font-black text-slate-900 uppercase tracking-tighter leading-none mb-2 group-hover:text-blue-600 transition-colors">Training</h2>
-                <p className="text-[9px] text-slate-500 font-bold uppercase leading-relaxed tracking-wider line-clamp-3">
-                  Elite technical mastery and strategic leadership training for global market dominance.
-                </p>
               </div>
               <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-50">
-                <div className="flex -space-x-1.5">
-                  {[1,2,3].map(n => <div key={n} className="w-5 h-5 rounded-full border-2 border-white bg-slate-100 overflow-hidden">
-                    <img src={`https://i.pravatar.cc/100?u=${n+10}`} alt="Expert" className="w-full h-full object-cover" />
-                  </div>)}
-                </div>
                 <Link to="/services" className="text-blue-600 p-1.5 bg-blue-50 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">
                   <ArrowRight size={12} />
                 </Link>
@@ -93,11 +74,10 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 2: Internship */}
           <div className="bg-white rounded-[2rem] border border-slate-200 overflow-hidden shadow-sm hover:shadow-2xl hover:scale-105 transition-all duration-500 flex flex-col group cursor-pointer">
             <div className="relative h-[35%] overflow-hidden shrink-0">
               <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" 
+                src={ASSET_VAULT.hero.internship} 
                 alt="Industrial Internship" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -112,16 +92,8 @@ const Home: React.FC = () => {
                   Corporate Immersion
                 </div>
                 <h2 className="text-lg font-black text-slate-900 uppercase tracking-tighter leading-none mb-2 group-hover:text-blue-600 transition-colors">Internship</h2>
-                <p className="text-[9px] text-slate-500 font-bold uppercase leading-relaxed tracking-wider line-clamp-3">
-                  Direct industry immersion with Fortune 500 partners to master enterprise tools.
-                </p>
               </div>
               <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-50">
-                <div className="flex -space-x-1.5">
-                  {[4,5,6].map(n => <div key={n} className="w-5 h-5 rounded-full border-2 border-white bg-slate-100 overflow-hidden">
-                    <img src={`https://i.pravatar.cc/100?u=${n+20}`} alt="Mentor" className="w-full h-full object-cover" />
-                  </div>)}
-                </div>
                 <Link to="/contact" className="text-blue-600 p-1.5 bg-blue-50 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">
                   <ArrowRight size={12} />
                 </Link>
@@ -129,11 +101,10 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 3: Placements */}
           <div className="bg-white rounded-[2rem] border border-slate-200 overflow-hidden shadow-sm hover:shadow-2xl hover:scale-105 transition-all duration-500 flex flex-col group cursor-pointer">
             <div className="relative h-[35%] overflow-hidden shrink-0">
               <img 
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
+                src={ASSET_VAULT.hero.placement} 
                 alt="Executive Placements" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -148,16 +119,8 @@ const Home: React.FC = () => {
                   Global Execution
                 </div>
                 <h2 className="text-lg font-black text-slate-900 uppercase tracking-tighter leading-none mb-2 group-hover:text-blue-600 transition-colors">Placements</h2>
-                <p className="text-[9px] text-slate-500 font-bold uppercase leading-relaxed tracking-wider line-clamp-3">
-                  Unrivaled network ensuring elite career placements with high-growth firms.
-                </p>
               </div>
               <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-50">
-                <div className="flex -space-x-1.5">
-                  {[7,8,9].map(n => <div key={n} className="w-5 h-5 rounded-full border-2 border-white bg-slate-100 overflow-hidden">
-                    <img src={`https://i.pravatar.cc/100?u=${n+30}`} alt="Placed" className="w-full h-full object-cover" />
-                  </div>)}
-                </div>
                 <Link to="/placements" className="text-blue-600 p-1.5 bg-blue-50 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">
                   <ArrowRight size={12} />
                 </Link>
